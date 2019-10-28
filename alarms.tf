@@ -58,7 +58,7 @@ resource "aws_cloudwatch_metric_alarm" "free_storage_space" {
 resource "aws_cloudwatch_metric_alarm" "aurora_replica_lag" {
   for_each            = var.aurora_replica_lag_checks
   alarm_name          = "${var.alarm_prefix}: ${each.key} Approximate aurora replication lag is high for ${var.cluster_identifier}"
-  comparison_operator = "LessThanOrEqualToThreshold"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = var.aurora_replica_lag_periods
   threshold           = each.value
   metric_name         = "AuroraReplicaLag"
