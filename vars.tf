@@ -21,8 +21,6 @@ variable "cpu_utilization_checks" {
     P1 = 95
     P2 = 90
     P3 = 85
-    P4 = 80
-    P5 = 75
   }
 }
 
@@ -47,8 +45,6 @@ variable "freeable_memory_checks" {
     P1 = 1024
     P2 = 1024 * 2
     P3 = 1024 * 3
-    P4 = 1024 * 3.5
-    P5 = 1024 * 4
   }
   description = "The amount of available random access memory, in megabytes"
 }
@@ -75,8 +71,6 @@ variable "free_storage_space_checks" {
     P1 = 1024
     P2 = 1024 * 2
     P3 = 1024 * 3
-    P4 = 1024 * 3.5
-    P5 = 1024 * 4
   }
   description = "The amount of storage available for temporary tables and logs, in megabytes"
 }
@@ -102,8 +96,6 @@ variable "aurora_replica_lag_checks" {
     P1 = 300
     P2 = 250
     P3 = 200
-    P4 = 150
-    P5 = 100
   }
   description = "For an Aurora Replica, the amount of lag when replicating updates from the primary instance, in milliseconds."
 }
@@ -130,8 +122,6 @@ variable "database_connections_checks" {
     P1 = 700
     P2 = 600
     P3 = 500
-    P4 = 400
-    P5 = 300
   }
   description = "Count of connections. Values related to database size"
 }
@@ -157,8 +147,6 @@ variable "swap_usage_checks" {
     P1 = 1000
     P2 = 600
     P3 = 500
-    P4 = 50
-    P5 = 10
   }
   description = "The amount of swap space used on the Aurora PostgreSQL DB instance. In MB"
 }
@@ -174,6 +162,32 @@ variable "swap_usage_period" {
 }
 
 variable "swap_usage_missing_data" {
+  type    = string
+  default = "notBreaching"
+}
+
+
+
+
+variable "deadlocks_checks" {
+  type = map(number)
+  default = {
+    P1 = 1
+  }
+  description = "The amount of deadlocks"
+}
+
+variable "deadlocks_periods" {
+  type    = number
+  default = 2
+}
+
+variable "deadlocks_period" {
+  type    = number
+  default = 60
+}
+
+variable "deadlocks_missing_data" {
   type    = string
   default = "notBreaching"
 }

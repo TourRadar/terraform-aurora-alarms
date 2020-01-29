@@ -107,3 +107,20 @@ resource "aws_cloudwatch_metric_alarm" "swap_usage" {
   tags                = var.tags
   dimensions          = local.dimensions
 }
+
+resource "aws_cloudwatch_metric_alarm" "deadlocks" {
+  for_each            = var.deadlocks_checks
+  alarm_name          = "${var.alarm_prefix}: ${each.key} Approximate count of deadlocks are above ${each.value} for ${var.cluster_identifier}"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = var.deadlocks_periods
+  threshold           = each.value
+  metric_name         = "DBClusterIdentifier"
+  namespace           = "AWS/RDS"
+  period              = var.deadlocks_period
+  statistic           = "Sum"
+  alarm_description   = "Priority: ${each.key} Alarm is above of threshold: ${each.value} deadlocks. The amount of deadlocks are high. It can block some critical queries on database"
+  treat_missing_data  = var.deadlocks_missing_data
+  alarm_actions       = var.actions
+  tags                = var.tags
+  dimensions          = local.dimensions
+}
