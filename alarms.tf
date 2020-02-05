@@ -163,7 +163,7 @@ resource "aws_cloudwatch_metric_alarm" "volume_write_iops" {
 
 resource "aws_cloudwatch_metric_alarm" "transaction_logs_disk_usage" {
   for_each            = var.transaction_logs_disk_usage_checks
-  alarm_name          = "${var.alarm_prefix}: ${each.key} Transaction logs disck usage is too high for ${var.cluster_identifier}"
+  alarm_name          = "${var.alarm_prefix}: ${each.key} Transaction logs disk usage is too high for ${var.cluster_identifier}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = var.transaction_logs_disk_usage_periods
   threshold           = each.value * 1024
