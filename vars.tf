@@ -191,3 +191,98 @@ variable "deadlocks_missing_data" {
   type    = string
   default = "notBreaching"
 }
+
+
+variable "volume_read_iops_checks" {
+  type = map(number)
+  default = {
+    P1 = 600
+    P2 = 400
+    P3 = 300
+  }
+  description = "The number of IOPs in thousands"
+}
+
+variable "volume_read_iops_periods" {
+  type    = number
+  default = 3
+}
+
+variable "volume_read_iops_period" {
+  type    = number
+  default = 60 * 60
+}
+
+variable "volume_read_iops_missing_data" {
+  type    = string
+  default = "notBreaching"
+}
+
+variable "volume_read_iops_statistic" {
+  type    = string
+  default = "Average"
+}
+
+
+variable "volume_write_iops_checks" {
+  type = map(number)
+  default = {
+    P1 = 600
+    P2 = 400
+    P3 = 300
+  }
+  description = "The number of IOPs in thousands"
+}
+
+variable "volume_write_iops_periods" {
+  type    = number
+  default = 3
+}
+
+variable "volume_write_iops_period" {
+  type    = number
+  default = 60 * 60
+}
+
+variable "volume_write_iops_missing_data" {
+  type    = string
+  default = "notBreaching"
+}
+
+variable "volume_write_iops_statistic" {
+  type    = string
+  default = "Average"
+}
+
+
+
+
+variable "transaction_logs_disk_usage_checks" {
+  type = map(number)
+  default = {
+    P1 = 200
+    P2 = 150
+    P3 = 100
+  }
+  description = "The number of IOPs in gigabytes"
+}
+
+variable "transaction_logs_disk_usage_periods" {
+  type    = number
+  default = 3
+}
+
+variable "transaction_logs_disk_usage_period" {
+  type    = number
+  default = 60 * 60
+}
+
+variable "transaction_logs_disk_usage_missing_data" {
+  type    = string
+  default = "notBreaching"
+}
+
+variable "transaction_logs_disk_usage_statistic" {
+  type    = string
+  default = "Average"
+}
