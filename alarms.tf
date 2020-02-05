@@ -166,7 +166,7 @@ resource "aws_cloudwatch_metric_alarm" "transaction_logs_disk_usage" {
   alarm_name          = "${var.alarm_prefix}: ${each.key} Transaction logs disk usage is too high for ${var.cluster_identifier}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = var.transaction_logs_disk_usage_periods
-  threshold           = each.value * 1024
+  threshold           = each.value * 1024 * 1024 * 1024
   metric_name         = "TransactionLogsDiskUsage"
   namespace           = "AWS/RDS"
   period              = var.transaction_logs_disk_usage_period
