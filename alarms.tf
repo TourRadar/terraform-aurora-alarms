@@ -96,7 +96,7 @@ resource "aws_cloudwatch_metric_alarm" "swap_usage" {
   alarm_name          = "${var.alarm_prefix}: ${each.key} Approximate swap usage is high for ${var.cluster_identifier}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = var.swap_usage_periods
-  threshold           = each.value
+  threshold           = each.value * 1024 * 1024
   metric_name         = "SwapUsage"
   namespace           = "AWS/RDS"
   period              = var.swap_usage_period
