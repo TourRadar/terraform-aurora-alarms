@@ -286,3 +286,34 @@ variable "transaction_logs_disk_usage_statistic" {
   type    = string
   default = "Average"
 }
+
+
+variable "buffer_cache_hit_ratio_checks" {
+  type = map(number)
+  default = {
+    P1 = 93
+    P2 = 95
+    P3 = 96
+  }
+  description = "%"
+}
+
+variable "buffer_cache_hit_ratio_periods" {
+  type    = number
+  default = 2
+}
+
+variable "buffer_cache_hit_ratio_period" {
+  type    = number
+  default = 60 * 16
+}
+
+variable "buffer_cache_hit_ratio_missing_data" {
+  type    = string
+  default = "notBreaching"
+}
+
+variable "buffer_cache_hit_ratio_statistic" {
+  type    = string
+  default = "Average"
+}

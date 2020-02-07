@@ -177,3 +177,20 @@ resource "aws_cloudwatch_metric_alarm" "transaction_logs_disk_usage" {
   tags                = var.tags
   dimensions          = local.dimensions
 }
+
+resource "aws_cloudwatch_metric_alarm" "buffer_cache_hit_ratio" {
+  for_each            = var.buffer_cache_hit_ratio_checks
+  alarm_name          = "${var.alarm_prefix}: ${each.key} Buffer cache hit ratio is too low for ${var.cluster_identifier}"
+  comparison_operator = "LessThanOrEqualToThreshold"
+  evaluation_periods  = var.buffer_cache_hit_ratio_periods
+  threshold           = each.value
+  metric_name         = "BufferCacheHitRatio"
+  namespace           = "AWS/RDS"
+  period              = var.buffer_cache_hit_ratio_period
+  statistic           = var.buffer_cache_hit_ratio_statistic
+  alarm_description   = "Priority: ${each.key} The percentage of requests that are served by the buffer cache. Should be close to 100%. More: https://amzn.to/31wBNqC"
+  treat_missing_data  = var.buffer_cache_hit_ratio_missing_data
+  alarm_actions       = var.actions
+  tags                = var.tags
+  dimensions          = local.dimensions
+}
