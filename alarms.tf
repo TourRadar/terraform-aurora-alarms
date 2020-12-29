@@ -205,3 +205,21 @@ resource "aws_cloudwatch_metric_alarm" "buffer_cache_hit_ratio" {
   tags                = var.tags
   dimensions          = local.dimensions
 }
+
+resource "aws_cloudwatch_metric_alarm" "maximum_used_transaction_ids" {
+  for_each            = var.maximum_used_transaction_ids_checks
+  alarm_name          = "${var.alarm_prefix}: ${each.key} MaximumUsedTransactionIDs is too high ${var.cluster_identifier}"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = var.maximum_used_transaction_ids_periods
+  threshold           = each.value
+  metric_name         = "MaximumUsedTransactionIDs"
+  namespace           = "AWS/RDS"
+  period              = var.maximum_used_transaction_ids_period
+  statistic           = "Maximum"
+  alarm_description   = "Priority: ${each.key} A PostgreSQL database can have two billion in-flight unvacuumed transactions before PostgreSQL takes dramatic action to avoid data loss. More: https://amzn.to/2MhOTEv"
+  treat_missing_data  = var.maximum_used_transaction_ids_missing_data
+  alarm_actions       = var.actions
+  ok_actions          = var.ok_actions
+  tags                = var.tags
+  dimensions          = local.dimensions
+}

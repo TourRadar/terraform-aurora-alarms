@@ -324,3 +324,28 @@ variable "buffer_cache_hit_ratio_statistic" {
   type    = string
   default = "Average"
 }
+
+
+variable "maximum_used_transaction_ids_checks" {
+  type = map(number)
+  default = {
+    P1 = 1000 * 1000000
+    P2 = 950 * 1000000
+    P3 = 900 * 1000000
+  }
+}
+
+
+variable "maximum_used_transaction_ids_periods" {
+  type    = number
+  default = 1
+}
+variable "maximum_used_transaction_ids_period" {
+  type    = number
+  default = 60 * 5
+}
+
+variable "maximum_used_transaction_ids_missing_data" {
+  type    = string
+  default = "notBreaching"
+}
